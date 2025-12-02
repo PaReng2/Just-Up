@@ -16,7 +16,10 @@ public class NoiseVoxelMap : MonoBehaviour
 
     private int dirtHeight;
     public int waterHeight = 5;
+
     [SerializeField] private float noiseScale = 20f;
+
+    
     void Start()
     {
         dirtHeight = maxHeight - 1;
@@ -128,7 +131,7 @@ public class NoiseVoxelMap : MonoBehaviour
         b.minable = true;
     }
 
-    
+
     void Update()
     {
         

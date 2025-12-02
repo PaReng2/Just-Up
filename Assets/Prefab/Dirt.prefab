@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8574931177221371489}
+  - component: {fileID: 8642063202701522495}
   m_Layer: 0
   m_Name: Dirt
   m_TagString: Untagged
@@ -32,6 +33,24 @@ Transform:
   - {fileID: 8519917870266749527}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8642063202701522495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2382311249212672824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7d69d9a885b7e46a41cf04d2c3633c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  maxHp: 3
+  icon: {fileID: 0}
+  hp: 0
+  dropCount: 1
+  minable: 1
 --- !u!1001 &8193856783391782332
 PrefabInstance:
   m_ObjectHideFlags: 0

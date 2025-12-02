@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BlockType { Dirt, Grass, Water, Gold }
+public enum BlockType 
+{ 
+    Dirt, 
+    Grass, 
+    Water, 
+    Gold,
+    Snow
+}
 
 public class Block : MonoBehaviour
 {

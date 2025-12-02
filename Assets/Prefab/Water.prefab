@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7754245000884724214}
+  - component: {fileID: -1564419805919373370}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -32,6 +33,24 @@ Transform:
   - {fileID: 8912253660005682509}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1564419805919373370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760262177360982941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a7d69d9a885b7e46a41cf04d2c3633c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  maxHp: 3
+  icon: {fileID: 0}
+  hp: 0
+  dropCount: 1
+  minable: 1
 --- !u!1001 &8945298955268074150
 PrefabInstance:
   m_ObjectHideFlags: 0

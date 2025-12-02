@@ -9,6 +9,7 @@ public class InventoryUi : MonoBehaviour
     public Sprite dirt;
     public Sprite grass;
     public Sprite gold;
+    public Sprite snow;
     public List<Transform> Slot = new List<Transform>();
     public GameObject SlotItem;
     List<GameObject> items = new List<GameObject>();
