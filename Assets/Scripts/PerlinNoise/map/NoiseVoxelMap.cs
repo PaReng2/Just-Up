@@ -8,6 +8,7 @@ public class NoiseVoxelMap : MonoBehaviour
     public GameObject Water;
     public GameObject Gress;
     public GameObject gold;
+    public GameObject Button;
 
     public int width = 20;
     public int depth = 20;
@@ -16,6 +17,8 @@ public class NoiseVoxelMap : MonoBehaviour
 
     private int dirtHeight;
     public int waterHeight = 5;
+    private int spawnedButtonCount = 0;
+    [Range(0, 100)] public int buttonSpawnChance = 5;
 
     [SerializeField] private float noiseScale = 20f;
 
@@ -23,7 +26,7 @@ public class NoiseVoxelMap : MonoBehaviour
     void Start()
     {
         dirtHeight = maxHeight - 1;
-
+        spawnedButtonCount = 0;
         float offsetX = Random.Range(-9999f, 9999f);
         float offsetZ = Random.Range(-9999f, 9999f);
 
@@ -45,7 +48,7 @@ public class NoiseVoxelMap : MonoBehaviour
                 {
                     if (y == h)
                     {
-                        SetGress(x, y, z);
+                        SetGrass(x, y, z);
 
                     }
                     else
@@ -74,15 +77,15 @@ public class NoiseVoxelMap : MonoBehaviour
                 SetDirt(pos.x, pos.y, pos.z);
                 break;
             case BlockType.Grass:
-                SetGress(pos.x, pos.y, pos.z);
+                SetGrass(pos.x, pos.y, pos.z);
                 break;
             case BlockType.Gold:
-                SetGress(pos.x, pos.y, pos.z);
+                SetGrass(pos.x, pos.y, pos.z);
                 break;
         }
     }
 
-    private void SetGress(int x, int y, int z)
+    private void SetGrass(int x, int y, int z)
     {
         var go = Instantiate(Gress, new Vector3(x, y, z), Quaternion.identity);
         go.name = $"B_{x}_{y}_{z}_G";
@@ -92,11 +95,27 @@ public class NoiseVoxelMap : MonoBehaviour
         b.maxHp = 3;
         b.dropCount = 1;
         b.minable = true;
+
+        if (spawnedButtonCount < 3 && Random.Range(0, 100) < buttonSpawnChance)
+        {
+            // 잔디 위에 생성해야 하므로 y + 1 좌표를 사용
+            var btn = Instantiate(Button, new Vector3(x, y + 1, z), Quaternion.identity);
+            btn.name = $"Button_{spawnedButtonCount}";
+
+            // 생성 개수 증가
+            spawnedButtonCount++;
+        }
     }
 
     private void SetDirt(int x, int y, int z)
     {
-        
+        int goldPercent = Random.Range(0, 100);
+        if (goldPercent <= 40)
+        {
+            SetGold(x, y, z);
+        }
+        else
+        {
             var go = Instantiate(dirt, new Vector3(x, y, z), Quaternion.identity);
             go.name = $"B_{x}_{y}_{z}_D";
 
@@ -105,9 +124,7 @@ public class NoiseVoxelMap : MonoBehaviour
             b.maxHp = 3;
             b.dropCount = 1;
             b.minable = true;
-        
-            
-
+        }
 
     }
 
@@ -131,7 +148,7 @@ public class NoiseVoxelMap : MonoBehaviour
         b.minable = true;
     }
 
-
+    
     void Update()
     {
         

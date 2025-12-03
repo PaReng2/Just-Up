@@ -9,7 +9,8 @@ public enum BlockType
     Grass, 
     Water, 
     Gold,
-    Snow
+    Snow,
+    Button
 }
 
 public class Block : MonoBehaviour
