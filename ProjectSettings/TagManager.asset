@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Block
   - Item
+  - pushButton
   layers:
   - Default
   - TransparentFX
