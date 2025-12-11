@@ -8,7 +8,6 @@ public class NoiseVoxelMap : MonoBehaviour
     public GameObject Water;
     public GameObject Gress;
     public GameObject gold;
-    public GameObject Button;
 
     public int width = 20;
     public int depth = 20;
@@ -17,8 +16,6 @@ public class NoiseVoxelMap : MonoBehaviour
 
     private int dirtHeight;
     public int waterHeight = 5;
-    private int spawnedButtonCount = 0;
-    [Range(0, 100)] public int buttonSpawnChance = 5;
 
     [SerializeField] private float noiseScale = 20f;
 
@@ -26,7 +23,6 @@ public class NoiseVoxelMap : MonoBehaviour
     void Start()
     {
         dirtHeight = maxHeight - 1;
-        spawnedButtonCount = 0;
         float offsetX = Random.Range(-9999f, 9999f);
         float offsetZ = Random.Range(-9999f, 9999f);
 
@@ -69,17 +65,17 @@ public class NoiseVoxelMap : MonoBehaviour
             }
         }
     }
-    public void PlaceTile(Vector3Int pos, BlockType type)
+    public void PlaceTile(Vector3Int pos, ItemType type)
     {
         switch (type)
         {
-            case BlockType.Dirt:
+            case ItemType.Dirt:
                 SetDirt(pos.x, pos.y, pos.z);
                 break;
-            case BlockType.Grass:
+            case ItemType.Grass:
                 SetGrass(pos.x, pos.y, pos.z);
                 break;
-            case BlockType.Gold:
+            case ItemType.Gold:
                 SetGrass(pos.x, pos.y, pos.z);
                 break;
         }
@@ -91,7 +87,7 @@ public class NoiseVoxelMap : MonoBehaviour
         go.name = $"B_{x}_{y}_{z}_G";
 
         var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
-        b.type = BlockType.Grass;
+        b.type = ItemType.Grass;
         b.maxHp = 3;
         b.dropCount = 1;
         b.minable = true;
@@ -112,7 +108,7 @@ public class NoiseVoxelMap : MonoBehaviour
             go.name = $"B_{x}_{y}_{z}_D";
 
             var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
-            b.type = BlockType.Dirt;
+            b.type = ItemType.Dirt;
             b.maxHp = 3;
             b.dropCount = 1;
             b.minable = true;
@@ -134,7 +130,7 @@ public class NoiseVoxelMap : MonoBehaviour
         go.name = $"B_{x}_{y}_{z}_G";
 
         var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
-        b.type = BlockType.Gold;
+        b.type = ItemType.Gold;
         b.maxHp = 5;
         b.dropCount = 1;
         b.minable = true;

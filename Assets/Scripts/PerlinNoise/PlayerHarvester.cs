@@ -29,58 +29,86 @@ public class PlayerHarvester : MonoBehaviour
         }
     }
 
+    void HarvestMode(int Damage)
+    {
+
+        selectedBlock.transform.localScale = Vector3.zero;
+        if (Input.GetMouseButton(0) && Time.time >= _nextHitTime)
+        {
+            _nextHitTime = Time.time + hitCooldown;
+
+            Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
+            {
+                var block = hit.collider.GetComponent<Block>();
+                if (block != null)
+                {
+                    block.Hit(Damage, inventory);
+                }
+            }
+        }
+
+    }
+
+    void BuildMod()
+    {
+        Ray rayDebug = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        if (Physics.Raycast(rayDebug, out var hitDebug, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
+        {
+            Vector3Int placePos = AdjacentCellOnHtFace(hitDebug);
+            selectedBlock.transform.localScale = Vector3.one;
+            selectedBlock.transform.position = placePos;
+            selectedBlock.transform.rotation = Quaternion.identity;
+
+        }
+        else
+        {
+            selectedBlock.transform.localScale = Vector3.zero;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
+            {
+                Vector3Int placePos = AdjacentCellOnHtFace(hit);
+
+                ItemType selected = inventoryUi.GetInventorySlot();
+                if (inventory.Consume(selected, 1))
+                {
+                    FindAnyObjectByType<NoiseVoxelMap>().PlaceTile(placePos, selected);
+                }
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (inventoryUi.selectedIndex < 0)
         {
-            selectedBlock.transform.localScale = Vector3.zero;
-            if (Input.GetMouseButton(0) && Time.time >= _nextHitTime)
-            {
-                _nextHitTime = Time.time + hitCooldown;
-
-                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-                if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
-                {
-                    var block = hit.collider.GetComponent<Block>();
-                    if (block != null)
-                    {
-                        block.Hit(toolDamage, inventory);
-                    }
-                }
-            }
+            HarvestMode(toolDamage);
         }
         else
         {
-            Ray rayDebug = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-                if (Physics.Raycast(rayDebug, out var hitDebug, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
-                {
-                    Vector3Int placePos = AdjacentCellOnHtFace(hitDebug);
-                    selectedBlock.transform.localScale = Vector3.one;
-                    selectedBlock.transform.position = placePos;
-                    selectedBlock.transform.rotation = Quaternion.identity;
-                    
-                }
-                else
-                {
-                    selectedBlock.transform.localScale = Vector3.zero;
-                }
-
-            if (Input.GetMouseButtonDown(0))
+            switch (inventoryUi.GetInventorySlot())
             {
-                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-                if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
-                {
-                    Vector3Int placePos = AdjacentCellOnHtFace(hit);
-
-                    BlockType selected = inventoryUi.GetInventorySlot();
-                    if (inventory.Consume(selected, 1))
-                    {
-                        FindAnyObjectByType<NoiseVoxelMap>().PlaceTile(placePos, selected);
-                    }
-                }
+                case ItemType.Axe:
+                    HarvestMode(3);
+                    break;
+                case ItemType.Ax1:
+                    HarvestMode(5);
+                    break;
+                case ItemType.Axe2:
+                    HarvestMode(6);
+                    break;
+                default:
+                    BuildMod();
+                    break;
             }
         }
+
     }
 
     static Vector3Int AdjacentCellOnHtFace(in RaycastHit hit)

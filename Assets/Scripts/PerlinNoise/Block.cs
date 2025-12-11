@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum BlockType 
+public enum ItemType 
 { 
     Dirt, 
     Grass, 
     Water, 
-    Gold,
-    Snow,
-    Button
+    Gold, 
+    Axe, 
+    Ax1, 
+    Axe2 
 }
+
 
 public class Block : MonoBehaviour
 {
     [Header("Block Stat")]
-    public BlockType type = BlockType.Dirt;
+    public ItemType type = ItemType.Dirt;
     public int maxHp = 3;
 
     [Header("Block inven")]
@@ -27,7 +29,6 @@ public class Block : MonoBehaviour
     public bool minable = true;
 
     Inventory inventory;
-
 
     bool isItem;
     void Awake()
