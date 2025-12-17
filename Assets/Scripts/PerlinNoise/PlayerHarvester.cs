@@ -95,13 +95,7 @@ public class PlayerHarvester : MonoBehaviour
             switch (inventoryUi.GetInventorySlot())
             {
                 case ItemType.Axe:
-                    HarvestMode(3);
-                    break;
-                case ItemType.Ax1:
-                    HarvestMode(5);
-                    break;
-                case ItemType.Axe2:
-                    HarvestMode(6);
+                    HarvestMode(3);   
                     break;
                 default:
                     BuildMod();

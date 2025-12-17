@@ -10,8 +10,8 @@ public enum ItemType
     Water, 
     Gold, 
     Axe, 
-    Ax1, 
-    Axe2 
+    Key
+    
 }
 
 

@@ -11,6 +11,7 @@ public class InventoryUi : MonoBehaviour
     public Sprite gold;
     public Sprite snow;
     public Sprite axe;
+    public Sprite key;
     public List<Transform> Slot = new List<Transform>();
     public GameObject SlotItem;
     List<GameObject> items = new List<GameObject>();
@@ -98,6 +99,9 @@ public class InventoryUi : MonoBehaviour
                     break;
                 case ItemType.Axe:
                     sItem.ItemGetting(axe, "x" + item.Value.ToString(), item.Key);
+                    break;
+                case ItemType.Key:
+                    sItem.ItemGetting(key, item.Value.ToString(), item.Key);
                     break;
             }
             idx++;

@@ -8,10 +8,12 @@ public class Inventory : MonoBehaviour
 {
     public Dictionary<ItemType, int> items = new();
     InventoryUi ui;
+    GameManager gameManager;
 
     private void Awake()
     {
         ui = FindAnyObjectByType<InventoryUi>();   
+        gameManager = FindAnyObjectByType<GameManager>();
     }
     public int GetCount(ItemType id)
     {
@@ -38,6 +40,8 @@ public class Inventory : MonoBehaviour
             items.Remove(type);
             ui.selectedIndex = -1;
             ui.ResetSelection();
+            if (type == ItemType.Key) gameManager.isHaveKey = true;
+
         }
 
         ui.UpdateInventory(this);

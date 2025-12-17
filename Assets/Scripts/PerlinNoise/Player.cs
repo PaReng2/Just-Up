@@ -66,7 +66,23 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "die")
         {
-            gameManager.Die();
+            gameManager.OnPlayerDie();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "water")
+        {
+            moveSpeed = 2;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "water")
+        {
+            moveSpeed = 5;
         }
     }
 }
